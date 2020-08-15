@@ -1,0 +1,38 @@
+package examen_final;
+
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+	private Symbol sym;
+	
+	public void syntax_error(Symbol sym){
+		this.sym = sym;
+	}
+	
+	public Symbol getS(){
+		return this.sym;
+	}
+	
+:};
+
+terminal Tab, Literal, Espacio, ERROR;
+terminal String Calificacion;
+non terminal INICIAR, INSTRUCCION, LISTA_INSTRUCCIONES;
+
+start with INICIAR;
+
+INICIAR ::= LISTA_INSTRUCCIONES
+;
+LISTA_INSTRUCCIONES ::= INSTRUCCION |
+					INSTRUCCION Espacio INSTRUCCION |
+					INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION |
+					INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION |
+					INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION
+;
+INSTRUCCION ::= Calificacion:calif Tab Literal {: 
+		if ( (Float.parseFloat(calif) < new Float(0)) && (Float.parseFloat(calif) > new Float(100)) ) {
+			parser.report_error("Numero no aceptado (debe ser un numero entre 0 y 100)", null);
+		}
+:}
+;
