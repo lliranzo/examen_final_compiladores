@@ -11,7 +11,7 @@ En_linea = [\n]
 tab = [\t]
 %{
     private Symbol symbol(int type, Object value) {
-    	return new Symbol(type, linea, colummna, value);
+    	return new Symbol(type, clinea, colummna, value);
     }
     
     private Symbol symbol(int type) {
@@ -19,8 +19,8 @@ tab = [\t]
     }
 %}
 %%
-{En_linea} {return new Symbol(sym.Enter_Linea, yychar, yyline, yytext());}
-{tab} {return new Symbol(sym.Tab, yychar, yyline, yytext());}
-(A|B|C|D|F) {return new Symbol(sym.Literal, yychar, yyline, yytext());}
-([0-9])+((\.)([0-9])+)? {return new Symbol(sym.Calificacion, yychar, yyline, yytext());}
- . {return new Symbol(sym.ERROR, yychar, yyline, yytext());}
+{En_linea} {return new Symbol(sym.Enter_Linea, yychar, clinea, yytext());}
+{tab} {return new Symbol(sym.Tab, yychar, clinea, yytext());}
+(A|B|C|D|F) {return new Symbol(sym.Literal, yychar, clinea, yytext());}
+([0-9])+((\.)([0-9])+)? {return new Symbol(sym.Calificacion, yychar, clinea, yytext());}
+ . {return new Symbol(sym.ERROR, yychar, clinea, yytext());}
