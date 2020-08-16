@@ -16,8 +16,8 @@ parser code
 	
 :};
 
-terminal Tab, Literal, Espacio, ERROR;
-terminal String Calificacion;
+terminal Tab, Literal, Enter_Linea, ERROR;
+terminal String Nota;
 non terminal INICIAR, INSTRUCCION, LISTA_INSTRUCCIONES;
 
 start with INICIAR;
@@ -25,13 +25,13 @@ start with INICIAR;
 INICIAR ::= LISTA_INSTRUCCIONES
 ;
 LISTA_INSTRUCCIONES ::= INSTRUCCION |
-					INSTRUCCION Espacio INSTRUCCION |
-					INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION |
-					INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION |
-					INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION Espacio INSTRUCCION
+					INSTRUCCION Enter_Linea INSTRUCCION |
+					INSTRUCCION Enter_Linea INSTRUCCION Enter_LineaINSTRUCCION |
+					INSTRUCCION Enter_Linea INSTRUCCION Enter_Linea INSTRUCCION Enter_Linea INSTRUCCION |
+					INSTRUCCION Enter_Linea INSTRUCCION Enter_Linea INSTRUCCION Enter_Linea INSTRUCCION Enter_Linea INSTRUCCION
 ;
-INSTRUCCION ::= Calificacion:calif Tab Literal {: 
-		if ( (Float.parseFloat(calif) < new Float(0)) && (Float.parseFloat(calif) > new Float(100)) ) {
+INSTRUCCION ::= Nota:not Tab Literal {: 
+		if ( (Float.parseFloat(not) < new Float(0)) && (Float.parseFloat(not) > new Float(100)) ) {
 			parser.report_error("Numero no aceptado (debe ser un numero entre 0 y 100)", null);
 		}
 :}
